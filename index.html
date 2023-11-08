@@ -31,11 +31,11 @@
   <main>
     <!-- Rekisteröinti -->
     <div id="registrationForm" class="container p-5 mt-2 mb-2 col-lg-6 col-xxl-4 bg-body-secondary" style="visibility: hidden;">
-      <h1>Rekisteröidy</h1>
-      <p id="ohje">Oletko jo rekisteröitynyt? Kirjaudu sisään ---tästä---</p>
+      <h2>Rekisteröidy</h2>
+      <p id="ohje" class="text-secondary small">Oletko jo rekisteröitynyt?  Kirjaudu sisään ---tästä---</p>
       
       <div class="row">
-        <form class="row g-3">
+        <form class="row">
           <div class="col-md-6">
             <label for="inputID" class="form-label">Käyttäjätunnus</label>
             <input id="inputID" type="text" class="form-control">
@@ -53,65 +53,244 @@
       </div>
     </div>
     
-    <!-- Äänestyslomake -->
-    <div id="votingForm" class="container">
-      <div class="mx-0 mx-sm-auto">
-        <div class="card">
-          <div class="card-body">
-            <div class="text-center">
-              <i class="far fa-file-alt fa-4x mb-3 text-primary"></i>
-              <h5 id="pollHeader">
-                <strong>Testiäänestys</strong>
-              </h5>
-              <p id="pollDescription">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sunt omnis, veniam distinctio aperiam officiis quia sequi.
-              </p>
+    <!-- Voting container -->
+    <div id="pollCardContainer" class="container">
+      <div class="row row-cols-3">
+        <div class="col">
+          <div class="card">
+            <!-- Card content here -->
+            <div class="card-body">
+              <div class="text-center">
+                <i class="far fa-file-alt fa-4x mb-3 text-primary"></i>
+                <h5 id="pollHeader">
+                  <strong>Testiäänestys</strong>
+                </h5>
+                <p id="pollDescription">
+                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sunt omnis, veniam distinctio aperiam officiis quia sequi.
+                </p>
+              </div>
+        
+              <hr />
+        
+              <form class="px-4" action="">
+                <p class="text-center"><strong>Vaihtoehdot</strong></p>
+        
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="radio" name="exampleForm" id="radio2Example1" />
+                  <label class="form-check-label" for="radio2Example1">
+                    Lorem
+                  </label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="radio" name="exampleForm" id="radio2Example2" />
+                  <label class="form-check-label" for="radio2Example2">
+                    ipsum
+                  </label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="radio" name="exampleForm" id="radio2Example3" />
+                  <label class="form-check-label" for="radio2Example3">
+                    dolor
+                  </label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="radio" name="exampleForm" id="radio2Example4" />
+                  <label class="form-check-label" for="radio2Example4">
+                    sit
+                  </label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="radio" name="exampleForm" id="radio2Example5" />
+                  <label class="form-check-label" for="radio2Example5">
+                    amet
+                  </label>
+                </div>
+        
+              </form>
             </div>
-      
-            <hr />
-      
-            <form class="px-4" action="">
-              <p class="text-center"><strong>Vaihtoehdot</strong></p>
-      
-              <div class="form-check mb-2">
-                <input class="form-check-input" type="radio" name="exampleForm" id="radio2Example1" />
-                <label class="form-check-label" for="radio2Example1">
-                  Lorem
-                </label>
-              </div>
-              <div class="form-check mb-2">
-                <input class="form-check-input" type="radio" name="exampleForm" id="radio2Example2" />
-                <label class="form-check-label" for="radio2Example2">
-                  ipsum
-                </label>
-              </div>
-              <div class="form-check mb-2">
-                <input class="form-check-input" type="radio" name="exampleForm" id="radio2Example3" />
-                <label class="form-check-label" for="radio2Example3">
-                  dolor
-                </label>
-              </div>
-              <div class="form-check mb-2">
-                <input class="form-check-input" type="radio" name="exampleForm" id="radio2Example4" />
-                <label class="form-check-label" for="radio2Example4">
-                  sit
-                </label>
-              </div>
-              <div class="form-check mb-2">
-                <input class="form-check-input" type="radio" name="exampleForm" id="radio2Example5" />
-                <label class="form-check-label" for="radio2Example5">
-                  amet
-                </label>
-              </div>
-      
-            </form>
+            <div class="card-footer text-end">
+              <button id="voteBtn" type="button" class="btn btn-primary">Äänestä</button>
+            </div>
           </div>
-          <div class="card-footer text-end">
-            <button id="voteBtn" type="button" class="btn btn-primary">Äänestä</button>
+        </div>
+        <div class="col">
+          <div class="card">
+            <!-- Card content here -->
+            <div class="card-body">
+              <div class="text-center">
+                <i class="far fa-file-alt fa-4x mb-3 text-primary"></i>
+                <h5 id="pollHeader">
+                  <strong>Testiäänestys</strong>
+                </h5>
+                <p id="pollDescription">
+                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sunt omnis, veniam distinctio aperiam officiis quia sequi.
+                </p>
+              </div>
+        
+              <hr />
+        
+              <form class="px-4" action="">
+                <p class="text-center"><strong>Vaihtoehdot</strong></p>
+        
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="radio" name="exampleForm" id="radio2Example1" />
+                  <label class="form-check-label" for="radio2Example1">
+                    Lorem
+                  </label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="radio" name="exampleForm" id="radio2Example2" />
+                  <label class="form-check-label" for="radio2Example2">
+                    ipsum
+                  </label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="radio" name="exampleForm" id="radio2Example3" />
+                  <label class="form-check-label" for="radio2Example3">
+                    dolor
+                  </label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="radio" name="exampleForm" id="radio2Example4" />
+                  <label class="form-check-label" for="radio2Example4">
+                    sit
+                  </label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="radio" name="exampleForm" id="radio2Example5" />
+                  <label class="form-check-label" for="radio2Example5">
+                    amet
+                  </label>
+                </div>
+        
+              </form>
+            </div>
+            <div class="card-footer text-end">
+              <button id="voteBtn" type="button" class="btn btn-primary">Äänestä</button>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card">
+            <!-- Card content here -->
+            <div class="card-body">
+              <div class="text-center">
+                <i class="far fa-file-alt fa-4x mb-3 text-primary"></i>
+                <h5 id="pollHeader">
+                  <strong>Testiäänestys</strong>
+                </h5>
+                <p id="pollDescription">
+                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sunt omnis, veniam distinctio aperiam officiis quia sequi.
+                </p>
+              </div>
+        
+              <hr />
+        
+              <form class="px-4" action="">
+                <p class="text-center"><strong>Vaihtoehdot</strong></p>
+        
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="radio" name="exampleForm" id="radio2Example1" />
+                  <label class="form-check-label" for="radio2Example1">
+                    Lorem
+                  </label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="radio" name="exampleForm" id="radio2Example2" />
+                  <label class="form-check-label" for="radio2Example2">
+                    ipsum
+                  </label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="radio" name="exampleForm" id="radio2Example3" />
+                  <label class="form-check-label" for="radio2Example3">
+                    dolor
+                  </label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="radio" name="exampleForm" id="radio2Example4" />
+                  <label class="form-check-label" for="radio2Example4">
+                    sit
+                  </label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="radio" name="exampleForm" id="radio2Example5" />
+                  <label class="form-check-label" for="radio2Example5">
+                    amet
+                  </label>
+                </div>
+        
+              </form>
+            </div>
+            <div class="card-footer text-end">
+              <button id="voteBtn" type="button" class="btn btn-primary">Äänestä</button>
+            </div>
           </div>
         </div>
       </div>
     </div>
+
+      <!-- OG Card -->
+      <!-- <div id="pollCard">
+        <div class="mx-0 mx-sm-auto">
+          <div class="card">
+            <div class="card-body">
+              <div class="text-center">
+                <i class="far fa-file-alt fa-4x mb-3 text-primary"></i>
+                <h5 id="pollHeader">
+                  <strong>Testiäänestys</strong>
+                </h5>
+                <p id="pollDescription">
+                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sunt omnis, veniam distinctio aperiam officiis quia sequi.
+                </p>
+              </div>
+        
+              <hr />
+        
+              <form class="px-4" action="">
+                <p class="text-center"><strong>Vaihtoehdot</strong></p>
+        
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="radio" name="exampleForm" id="radio2Example1" />
+                  <label class="form-check-label" for="radio2Example1">
+                    Lorem
+                  </label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="radio" name="exampleForm" id="radio2Example2" />
+                  <label class="form-check-label" for="radio2Example2">
+                    ipsum
+                  </label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="radio" name="exampleForm" id="radio2Example3" />
+                  <label class="form-check-label" for="radio2Example3">
+                    dolor
+                  </label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="radio" name="exampleForm" id="radio2Example4" />
+                  <label class="form-check-label" for="radio2Example4">
+                    sit
+                  </label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="radio" name="exampleForm" id="radio2Example5" />
+                  <label class="form-check-label" for="radio2Example5">
+                    amet
+                  </label>
+                </div>
+        
+              </form>
+            </div>
+            <div class="card-footer text-end">
+              <button id="voteBtn" type="button" class="btn btn-primary">Äänestä</button>
+            </div>
+          </div>
+        </div>
+      </div> -->
+
+
   </main>
   
   <footer>
