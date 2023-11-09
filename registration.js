@@ -55,9 +55,9 @@ export function updatePlaceholders() {
 }
 
 export function showRegistrationForm() {
-  form.style.visibility = 'visible';
+  form.classList.replace('invisible', 'visible');
 }
 
 export function hideRegistrationForm() {
-  form.style.visibility = 'hidden';
+  form.classList.replace('visible', 'invisible');
 }
