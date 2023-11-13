@@ -7,6 +7,7 @@
 
 export function createCard(id, subject, description, choices) {
     const pollContainer = document.getElementById('poll-container');
+    const pollName = `poll${id}`;
     
     // Card container
     const newCard = document.createElement('div');
@@ -41,12 +42,17 @@ export function createCard(id, subject, description, choices) {
         const newChoice = document.createElement('div');
         newChoice.classList.add('form-check', 'mb-2');
 
+        // Radio button
         const radio = document.createElement('input');
         radio.classList.add('form-check-input');
         radio.type = 'radio';
-        radio.name = `poll${id}`;
+        radio.name = pollName;
         radio.id = `${radio.name}-choice${choiceId}`;
+        if (choiceId === 0) {
+            radio.checked = true;
+        }
 
+        // Progress bar
         const progressDiv = document.createElement('div');
         progressDiv.classList.add('progress');
         progressDiv.style.height = '2rem';
@@ -59,7 +65,8 @@ export function createCard(id, subject, description, choices) {
         progressDiv.setAttribute('aria-valuemin', '0');
         progressDiv.setAttribute('aria-valuemax', '100');
         progressDiv.setAttribute('aria-valuenow', '0');
-        
+
+        // Label
         const label = document.createElement('label');
         label.classList.add('form-check-label');
         label.htmlFor =  radio.id;
@@ -86,4 +93,12 @@ export function createCard(id, subject, description, choices) {
     div1.appendChild(footer);
 
     pollContainer.appendChild(newCard);
+
+    // Vote button functionality
+    voteBtn.addEventListener('click', (event) => {
+        event.preventDefault();
+
+        const selectedChoice = document.querySelector(`input[name=${pollName}]:checked`);
+        console.log(subject, ': voted for', selectedChoice.id);
+    })
 }
