@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
   // showRegistrationForm();
   createCard(0, 'Lempieläin', 'Mikä on lempieläimesi?', ['Kissa', 'Koira']);
   createCard(1, 'Ohjelmointikielet', 'Mikä on paras ohjelmointikieli?', ['Python', 'JavaScript', 'C', 'Scratch']);
-  createCard(2, 'Äänestäminen', 'Aiotko äänestää?', ['Kyllä', 'En', 'Ehkä']);
+  createCard(2, 'Äänestäminen', 'Aiotko äänestää?', ['Kyllä', 'En', 'Ehkä', 'Anna maksimiksi 30 merkkiä hmm']);
   updatePlaceholders();
 });
   

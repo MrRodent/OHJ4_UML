@@ -1,10 +1,3 @@
-// Tuloksena näkyvä:
-/* <div id="choice1-progress" class="progress-bar" role="progressbar" style="width: 20%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">20%</div> */
-// Width on barin näkyvä osa!
-
-// Vaihtoehtona näkyvä (ainoastaan widthillä on väliä):
-// style="width: 100%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Vaihtoehto 1</div>
-
 export function createCard(id, subject, description, choices) {
     const pollContainer = document.getElementById('poll-container');
     const pollName = `poll${id}`;
@@ -47,7 +40,9 @@ export function createCard(id, subject, description, choices) {
         radio.classList.add('form-check-input', 'bg-dark', 'link-dark');
         radio.type = 'radio';
         radio.name = pollName;
-        radio.id = `${radio.name}-choice${choiceId}`;
+        // radio.id = `${radio.name}-choice${choiceId}`;    // TODO: choose between strings and just int
+        // radio.id = `choice${choiceId}`;
+        radio.id = choiceId;
 
         // Progress bar
         const progressDiv = document.createElement('div');
@@ -64,12 +59,12 @@ export function createCard(id, subject, description, choices) {
         progressDiv.setAttribute('aria-valuenow', '0');
 
         // Preselect first choice       // TODO: keep or scrap
-        // if (choiceId === 0) {
-        //     radio.checked = true;
-        //     progressBar.classList.replace('bg-dark', 'bg-secondary');
-        // } else {
-        //     progressBar.classList.add('bg-dark');
-        // }
+        if (choiceId === 0) {
+            radio.checked = true;
+            progressBar.classList.replace('bg-dark', 'bg-secondary');
+        } else {
+            progressBar.classList.add('bg-dark');
+        }
 
         // Change colour when selected
         form.addEventListener('click', () => {
@@ -118,6 +113,35 @@ export function createCard(id, subject, description, choices) {
         event.preventDefault();
 
         const selectedChoice = document.querySelector(`input[name=${pollName}]:checked`);
-        console.log(subject, ': voted for', selectedChoice.id);
+        vote(selectedChoice);
+        showResults(form);
     })
+}
+
+function vote(choice) {
+    // console.log(choice.name, choice.id);
+
+    // Add +1 to the choice
+    // Update vote counts and ARIA
+    // Save to localStorage
+}
+
+function showResults(form) {
+    const choices = form.children;
+    for (const choice of choices) {
+        const input = choice.childNodes[0];
+        const progressDiv = choice.childNodes[1];
+        const progressBar = progressDiv.childNodes[0];
+        const label = progressBar.childNodes[0];
+
+        // Highlight user's choice
+        if (input.checked) {
+            progressBar.classList.replace('bg-secondary', 'bg-success');
+        }
+
+        input.classList.add('invisible');
+        label.innerHTML += '<br>50%';
+        progressBar.style.width = '50%';
+        progressDiv.style.height = '3rem';
+    }
 }
