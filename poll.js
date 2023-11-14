@@ -44,13 +44,10 @@ export function createCard(id, subject, description, choices) {
 
         // Radio button
         const radio = document.createElement('input');
-        radio.classList.add('form-check-input');
+        radio.classList.add('form-check-input', 'bg-dark', 'link-dark');
         radio.type = 'radio';
         radio.name = pollName;
         radio.id = `${radio.name}-choice${choiceId}`;
-        if (choiceId === 0) {
-            radio.checked = true;
-        }
 
         // Progress bar
         const progressDiv = document.createElement('div');
@@ -65,6 +62,28 @@ export function createCard(id, subject, description, choices) {
         progressDiv.setAttribute('aria-valuemin', '0');
         progressDiv.setAttribute('aria-valuemax', '100');
         progressDiv.setAttribute('aria-valuenow', '0');
+
+        // Preselect first choice       // TODO: keep or scrap
+        // if (choiceId === 0) {
+        //     radio.checked = true;
+        //     progressBar.classList.replace('bg-dark', 'bg-secondary');
+        // } else {
+        //     progressBar.classList.add('bg-dark');
+        // }
+
+        // Change colour when selected
+        form.addEventListener('click', () => {
+            if (radio.checked === true) {
+                progressBar.classList.replace('bg-dark', 'bg-secondary');
+            } else {
+                progressBar.classList.replace('bg-secondary', 'bg-dark');
+            }
+        }) 
+
+        // Extend the click to whole progress bar
+        progressBar.addEventListener('click', () => {
+            radio.checked = true;
+        })
 
         // Label
         const label = document.createElement('label');
