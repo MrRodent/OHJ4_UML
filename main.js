@@ -1,4 +1,4 @@
-import { createCard } from "./poll.js";
+import { pollCard } from "./poll.js";
 import { hideRegistrationForm, showRegistrationForm, updatePlaceholders } from "./registration.js";
 
 //////////////
@@ -12,9 +12,9 @@ export const pwMinLength = 6;
 document.addEventListener("DOMContentLoaded", (event) => {
   console.log("DOM fully loaded and parsed");
   // showRegistrationForm();
-  createCard(0, 'Lempieläin', 'Mikä on lempieläimesi?', ['Kissa', 'Koira']);
-  createCard(1, 'Ohjelmointikielet', 'Mikä on paras ohjelmointikieli?', ['Python', 'JavaScript', 'C', 'Scratch']);
-  createCard(2, 'Äänestäminen', 'Aiotko äänestää?', ['Kyllä', 'En', 'Ehkä', 'Anna maksimiksi 30 merkkiä hmm']);
+  const card0 = new pollCard(0, 'Lempieläin', 'Mikä on lempieläimesi?', ['Kissa', 'Koira'])
+  const card1 = new pollCard(1, 'Ohjelmointikielet', 'Mikä on paras ohjelmointikieli?', ['Python', 'JavaScript', 'C', 'Scratch'])
+  const card2 = new pollCard(2, 'Äänestäminen', 'Aiotko äänestää?', ['Kyllä', 'En', 'Ehkä', 'Anna maksimiksi 30 merkkiä hmm'])
   updatePlaceholders();
 });
   
