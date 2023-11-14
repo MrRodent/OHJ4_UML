@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="fi">
+<html lang="fi" data-bs-theme="dark">
 
 <head>
   <title>Äänestys</title>
@@ -12,7 +12,7 @@
 
   <header>
     <!-- Navigaatio -->
-    <nav class="navbar navbar-expand-sm navbar-light bg-light">
+    <nav class="navbar navbar-expand-sm navbar-light bg-body-tertiary">
         <div class="container space-between">
         <a class="navbar-brand" href="index.html">Äänestys</a>
           <ul class="navbar-nav me-auto mt-2 mt-lg-0">
@@ -32,69 +32,11 @@
     <!-- Poll container -->
     <div class="container mt-4">
       <div id="poll-container" class="row row-cols-1 row-cols-md-2 row-cols-xxl-3">
-
-        <!-- Card -->
-        <!-- <div class="col mb-4">
-          <div id="poll-card" class="card">
-            <div class="card-body text-center">
-              <h5 class="fw-bold mb-3">
-                HTML-äänestys
-              </h5>
-              <p class="bg-body-tertiary rounded-1 p-2">
-                Tätä korttia ei ole luotu dynaamisesti.
-              </p>
-              <hr>
-        
-              <form class="px-4" action="">
-                <div class="form-check mb-2">
-                  <input class="form-check-input" type="radio" name="pollForm" id="choice1" checked="true">
-                  <div class="progress" style="height: 2rem">
-                    <div id="choice1-progress" class="progress-bar bg-dark" role="progressbar" style="width: 100%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                      <label class="form-check-label" for="choice1">
-                        Vaihtoehto 1                  
-                      </label>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="form-check mb-2">
-                  <input class="form-check-input" type="radio" name="pollForm" id="choice2">
-                  <div class="progress" style="height: 2rem">
-                    <div id="choice2-progress" class="progress-bar bg-dark" role="progressbar" style="width: 100%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                      <label class="form-check-label" for="choice2">
-                        Vaihtoehto 2
-                      </label>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="form-check mb-2">
-                  <input class="form-check-input" type="radio" name="pollForm" id="choice3">
-                  <div class="progress" style="height: 2rem">
-                    <div id="choice3-progress" class="progress-bar bg-dark" role="progressbar" style="width: 100%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                      <label class="form-check-label" for="choice3">
-                        Vaihtoehto 3
-                      </label>
-                    </div>
-                  </div>
-                </div>
-
-              </form>
-            </div>
-            
-            <div class="card-footer text-end">
-              <button id="voteBtn" type="button" class="btn btn-outline-dark">Äänestä</button>
-            </div>
-          </div>
-        </div> -->
-        <!-- Card ends -->
-
-        <!-- End of poll container -->
       </div>  
     </div>
 
     <!-- Rekisteröinti -->
-    <div id="registrationForm" class="container p-5 mt-2 mb-2 col-lg-6 col-xxl-4 bg-body-secondary invisible">
+    <div id="registrationForm" class="container p-5 mt-2 mb-2 col-lg-6 col-xxl-4 bg-body-tertiary invisible">
       <h2>Rekisteröidy</h2>
       <p id="ohje" class="text-secondary small">Oletko jo rekisteröitynyt?  Kirjaudu sisään ---tästä---</p>
       
@@ -105,13 +47,13 @@
             <input id="inputID" type="text" class="form-control">
             <p class="text-danger small" id="errorMsgID"></p>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-6 mb-2">
             <label for="inputPw" class="form-label">Salasana</label>
             <input type="password" class="form-control" id="inputPw">
             <p class="text-danger small" id="errorMsgPw"></p>
           </div>
-          <div class="col-12">
-            <button id="registrationBtn" type="button" class="btn btn-outline-dark">Rekisteröidy</button>
+          <div class="col-12 text-end">
+            <button id="registrationBtn" type="button" class="btn btn-outline-light">Luo tunnus</button>
           </div>
         </form>
       </div>
