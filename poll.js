@@ -54,7 +54,7 @@ export class pollCard {
         this.form.action = "";   // NOTE: This would be used to send the form to a server if there was one
     
         // Loop through the choices and create their form elements
-        let choiceId = 0;
+        let choiceIndex = 0;
         this.choices.forEach(choice => {
             const newChoice = document.createElement('div');
             newChoice.classList.add('form-check', 'mb-2');
@@ -64,12 +64,8 @@ export class pollCard {
             radio.classList.add('form-check-input', 'bg-dark', 'link-dark');
             radio.type = 'radio';
             radio.name = this.pollName;
-            // radio.id = `${radio.name}-choice${choiceId}`;    // TODO: choose between strings and just int
-            // radio.id = `choice${choiceId}`;
-            radio.id = choiceId;
-            // Keeps count of the votes as well     // TODO: have to parse this to int and put back, maybe theres a better way?
-            radio.setAttribute('data-vote-count', 0);
-
+            radio.id = `${radio.name}-choice${choiceIndex}`;
+            radio.setAttribute('data-index', choiceIndex);
     
             // Progress bar
             const progressDiv = document.createElement('div');
@@ -86,7 +82,7 @@ export class pollCard {
             progressDiv.setAttribute('aria-valuenow', '0');
     
             // Preselect first choice       // TODO: keep or scrap
-            if (choiceId === 0) {
+            if (choiceIndex === 0) {
                 radio.checked = true;
                 progressBar.classList.replace('bg-dark', 'bg-secondary');
             } else {
@@ -118,7 +114,7 @@ export class pollCard {
             newChoice.appendChild(radio);
             newChoice.appendChild(progressDiv);
             this.form.appendChild(newChoice);
-            choiceId++;
+            choiceIndex++;
         });
         div2.appendChild(this.form);
     
@@ -152,8 +148,9 @@ export class pollCard {
     }
 
     vote(choice) {
-        this.voteCounts[choice.id] += 1;
-        console.log(choice.name, 'choice:', choice.id, 'votes:', this.voteCounts[choice.id]);
+        const index = choice.getAttribute('data-index');
+        this.voteCounts[index] += 1;
+        console.log(choice.id, 'votes:', this.voteCounts[index]);
     
         // Update vote counts and ARIA
         // Save to localStorage 
