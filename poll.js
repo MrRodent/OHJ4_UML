@@ -220,6 +220,7 @@ export class pollCard {
 
     skipVoting(parent, resultBtn, voteBtn) {
         resultBtn.classList.add('disabled', 'fst-italic');
+        voteBtn.classList.add('disabled', 'fst-italic');
 
         // Create the HTML elements
         const div = document.createElement('div');
@@ -256,6 +257,7 @@ export class pollCard {
         // Decline button functionality
         declineBtn.addEventListener('click', () => {
             resultBtn.classList.remove('disabled', 'fst-italic');
+            voteBtn.classList.remove('disabled', 'fst-italic');
             parent.removeChild(div);
         });
     }
