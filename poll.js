@@ -1,11 +1,13 @@
 export class pollCard {
-    constructor (id, subject, description, choices) {
+    constructor (id, subject, description, choices, testVotes = 0) {
         this.id = id;
         this.subject = subject;
         this.description = description;
         this.choices = choices;
-
         this.pollName = `poll${id}`;
+
+        // Adds a random number of votes for testing purposes
+        this.testVotes = testVotes;
 
         // Bookkeeping
         this.totalVotes = 0;
@@ -17,12 +19,12 @@ export class pollCard {
         // Create a vote counter for each choice
         this.voteCounts = {};
         choices.forEach((choice, index) => {
-            if (false) {
-                this.voteCounts[index] = 0;
-            } else {    // Random votes for testing purposes
-                const random = Math.floor(Math.random() * 40) + 10;
+            if (testVotes) {
+                const random = Math.floor(Math.random() * testVotes) + 10;
                 this.totalVotes += random;
                 this.voteCounts[index] = random;
+            } else {
+                this.voteCounts[index] = 0;
             }
         });
 
@@ -153,31 +155,18 @@ export class pollCard {
         // Result button functionality
         resultBtn.addEventListener('click', (event) => {
             event.preventDefault();
-    
-            resultBtn.classList.add('invisible');
-            voteBtn.classList.add('disabled', 'fst-italic');
-            voteBtn.textContent = `Ääniä: ${this.totalVotes}`;
-
-            this.showResults();
-            console.log("SKIPPED VOTING");  // TODO: add confirmation
+            this.skipVoting(div1, resultBtn, voteBtn);
         })
     
         // Vote button functionality
         voteBtn.addEventListener('click', (event) => {
             event.preventDefault();
-    
             // TODO: check this when loading page
             // this should be saved only to the user
             this.alreadyVoted = true;
-
             const selectedChoice = document.querySelector(`input[name=${this.pollName}]:checked`);
             this.vote(selectedChoice);
-            
-            resultBtn.classList.add('invisible');
-            voteBtn.classList.add('disabled', 'fst-italic');
-            voteBtn.textContent = `Ääniä: ${this.totalVotes}`;
-
-            this.showResults();
+            this.showResults(resultBtn, voteBtn);
         })
     }
 
@@ -189,11 +178,18 @@ export class pollCard {
     }
 
     getPercentage(voteCount) {
+        if (this.totalVotes === 0) {
+            return 0;
+        }
         const float = (voteCount / this.totalVotes) * 100;
         return float.toFixed(1);
     }
 
-    showResults() {
+    showResults(resultBtn, voteBtn) {
+        resultBtn.classList.add('invisible');
+        voteBtn.classList.add('disabled', 'fst-italic');
+        voteBtn.textContent = `Ääniä: ${this.totalVotes}`;
+
         const choices = this.form.children;
         for (const choice of choices) {
             const input = choice.childNodes[0];
@@ -202,8 +198,10 @@ export class pollCard {
             const label = progressBar.childNodes[0];
     
             // Highlight user's choice
-            if (input.checked) {
+            if (input.checked && this.alreadyVoted) {
                 progressBar.classList.replace('bg-secondary', 'bg-success');
+            } else {
+                progressBar.classList.replace('bg-secondary', 'bg-body-tertiary');
             }
 
             const index = input.getAttribute('data-index');
@@ -218,5 +216,47 @@ export class pollCard {
             // Hide radio button
             input.classList.add('invisible');
         }
+    }
+
+    skipVoting(parent, resultBtn, voteBtn) {
+        resultBtn.classList.add('disabled', 'fst-italic');
+
+        // Create the HTML elements
+        const div = document.createElement('div');
+        div.classList.add('bg-danger-subtle', 'rounded-2');
+        const confirmText = document.createElement('p');
+        confirmText.classList.add('text-center', 'm-2', 'small', 'fst-italic');
+        confirmText.textContent = 'Haluatko varmasti jättää äänestämättä?';
+        div.appendChild(confirmText);
+        
+        const buttonDiv = document.createElement('div');
+        buttonDiv.classList.add('text-center', 'm-2');
+
+        const confirmBtn = document.createElement('button');
+        confirmBtn.type = 'button';
+        confirmBtn.classList.add('btn', 'btn-sm', 'btn-outline-light', 'm-1');
+        confirmBtn.textContent = 'Kyllä';
+
+        const declineBtn = document.createElement('button');
+        declineBtn.type = 'button';
+        declineBtn.classList.add('btn', 'btn-sm', 'btn-outline-light', 'm-1');
+        declineBtn.textContent = 'En';
+
+        buttonDiv.appendChild(confirmBtn);
+        buttonDiv.appendChild(declineBtn);
+        div.appendChild(buttonDiv);
+        parent.appendChild(div);
+
+        // Confirm button functionality
+        confirmBtn.addEventListener('click', () => {
+            this.showResults(resultBtn, voteBtn);
+            parent.removeChild(div);
+        });
+
+        // Decline button functionality
+        declineBtn.addEventListener('click', () => {
+            resultBtn.classList.remove('disabled', 'fst-italic');
+            parent.removeChild(div);
+        });
     }
 }
