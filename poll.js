@@ -1,19 +1,15 @@
 export class pollCard {
-    constructor (id, subject, description, choices, testVotes = 0) {
+    constructor (id, subject, description, choices, testVotes) {
         this.id = id;
         this.subject = subject;
         this.description = description;
         this.choices = choices;
-        this.pollName = `poll${id}`;
-
         // Adds a random number of votes for testing purposes
-        this.testVotes = testVotes;
-
-        // Bookkeeping
+        this.testVotes = testVotes || 0;
+        
+        this.pollName = `poll${id}`;
         this.totalVotes = 0;
         this.alreadyVoted = false;
-
-        // Values to be created and used in other functions
         this.form;
 
         // Create a vote counter for each choice
@@ -241,7 +237,7 @@ export class pollCard {
         const declineBtn = document.createElement('button');
         declineBtn.type = 'button';
         declineBtn.classList.add('btn', 'btn-sm', 'btn-outline-light', 'm-1');
-        declineBtn.textContent = 'En';
+        declineBtn.textContent = 'En, haluan äänestää';
 
         buttonDiv.appendChild(confirmBtn);
         buttonDiv.appendChild(declineBtn);

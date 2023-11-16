@@ -34,31 +34,29 @@
       <div id="poll-container" class="row row-cols-1 row-cols-md-2 row-cols-xxl-3"></div>  
     </div>
 
-
     <!-- Rekisteröinti -->
     <div id="registrationForm" class="container p-5 mt-2 mb-2 col-lg-6 col-xxl-4 bg-body-tertiary invisible">
       <h2>Rekisteröidy</h2>
       <p id="ohje" class="text-secondary small">Oletko jo rekisteröitynyt?  Kirjaudu sisään ---tästä---</p>
       
-      <div class="row">
-        <form class="row">
-          <div class="col-md-6">
-            <label for="inputID" class="form-label">Käyttäjätunnus</label>
-            <input id="inputID" type="text" class="form-control">
-            <p class="text-danger small" id="errorMsgID"></p>
-          </div>
-          <div class="col-md-6 mb-2">
-            <label for="inputPw" class="form-label">Salasana</label>
-            <input type="password" class="form-control" id="inputPw">
-            <p class="text-danger small" id="errorMsgPw"></p>
-          </div>
-          <div class="col-12 text-end">
-            <button id="registrationBtn" type="button" class="btn btn-outline-light">Luo tunnus</button>
-          </div>
-        </form>
+      <!-- TODO: <form> tags break the floating -->
+      <div class="col-md-6 form-floating">
+        <input id="inputID" type="text" class="form-control">
+        <label for="inputID" class="form-label">Käyttäjätunnus</label>
+        <p class="text-danger small" id="errorMsgID"></p>
       </div>
-    </div>
 
+      <div class="col-md-6 mb-2 form-floating">
+        <input type="password" class="form-control" id="inputPw">
+        <label for="inputPw" class="form-label">Salasana</label>
+        <p class="text-danger small" id="errorMsgPw"></p>
+      </div>
+
+      <div class="col-12 text-end">
+        <button id="registrationBtn" type="button" class="btn btn-outline-light">Luo tunnus</button>
+      </div>
+
+    </div>
   </main>
   
   <footer>
