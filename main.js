@@ -1,5 +1,5 @@
 import { pollCard } from "./poll.js";
-import { hideRegistrationForm, showRegistrationForm, updatePlaceholders } from "./registration.js";
+import { hideRegistrationForm, showRegistrationForm } from "./registration.js";
 
 //////////////
 // Settings
@@ -15,6 +15,5 @@ document.addEventListener("DOMContentLoaded", (event) => {
   // const card0 = new pollCard(0, 'Lempieläin', 'Mikä on lempieläimesi?', ['Kissa', 'Koira'], 1000);
   // const card1 = new pollCard(1, 'Ohjelmointikielet', 'Mikä on paras ohjelmointikieli?', ['Python', 'JavaScript', 'C', 'Scratch'], 100);
   // const card2 = new pollCard(2, 'Äänestäminen', 'Aiotko äänestää?', ['Kyllä', 'En', 'Ehkä', 'Anna maksimiksi 30 merkkiä hmm'], 50);
-  updatePlaceholders();
 });
   

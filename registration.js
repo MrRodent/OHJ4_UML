@@ -41,6 +41,7 @@ function send() {
   if (validateID(idField)
     & validatePassword(pwField)) {
       console.log("ONNISTUI");
+      saveToJson(idField, pwField);
       return true;
     };
 
@@ -48,12 +49,13 @@ function send() {
   return false;
 }
 
-// Exports
-export function updatePlaceholders() {
-  idField.placeholder = `Min. ${idMinLength} merkkiä`;
-  pwField.placeholder = `Min. ${pwMinLength} merkkiä`;
+function saveToLocalStorage(idField, pwField) {
+  const obj = {name: idField, pw: pwField, admin: false};
+  const json = JSON.stringify(obj);
+  localStorage.setItem("users", json);  // TODO: array
 }
 
+// Exports
 export function showRegistrationForm() {
   form.classList.replace('invisible', 'visible');
 }
