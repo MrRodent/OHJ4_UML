@@ -1,14 +1,16 @@
+import { hideLoginForm } from "./login.js";
 import { idMinLength, pwMinLength } from "./main.js";
-import { findDuplicateID, showToast } from "./utils.js";
+import { findID, showToast } from "./utils.js";
 
 //////////////
 // DOM elements
 let pollContainer = document.getElementById('poll-container');
 let form = document.getElementById('registrationForm');
-let errorMsgID = document.getElementById('errorMsgID');
-let errorMsgPw = document.getElementById('errorMsgPw');
+let errorMsgID = document.getElementById('regErrorMsgID');
+let errorMsgPw = document.getElementById('regErrorMsgPw');
 const showRegBtn = document.getElementById('showRegForm');
-let regBtn = document.getElementById('registrationBtn');
+const showRegLink = document.getElementById('showRegFormLink');
+const regBtn = document.getElementById('registrationBtn');
 const regCloseBtn = document.getElementById('regCloseBtn');
 
 //////////////
@@ -18,11 +20,10 @@ function validateID(userID) {
     errorMsgID.innerHTML = `Minimipituus ${idMinLength} merkkiä.`;
     return false;
   }
-  if (findDuplicateID(userID)) {
+  if (findID(userID)) {
     errorMsgID.innerHTML = `Käyttäjätunnus on jo rekisteröity.`;
     return false;
   }
-
   errorMsgID.innerHTML = '';
   return true;
 }
@@ -51,9 +52,9 @@ function saveToLocalStorage(idField, pwField, adminCheck) {
 }
 
 // Sending
-function send() {   //TODO: feedback, empty fields
-  const idField = document.getElementById('inputID').value;
-  const pwField = document.getElementById('inputPw').value;
+function send() {
+  const idField = document.getElementById('regInputID').value;
+  const pwField = document.getElementById('regInputPw').value;
   const adminCheck = document.getElementById('checkAdmin').checked;
   
   if (validateID(idField)
@@ -70,14 +71,15 @@ regBtn.addEventListener('click', send);
 
 //////////////
 // Exports
-export function showRegistrationForm() {
-  form.classList.replace('invisible', 'visible');
-  pollContainer.classList.add('blur');
-}
-
 export function hideRegistrationForm() {
   form.classList.replace('visible', 'invisible');
   pollContainer.classList.remove('blur');
+}
+
+export function showRegistrationForm() {
+  hideLoginForm();
+  form.classList.replace('invisible', 'visible');
+  pollContainer.classList.add('blur');
 }
 
 export function createDefaultUsers() {
@@ -90,8 +92,8 @@ export function createDefaultUsers() {
 }
 
 export function emptyRegFields() {
-  let id = document.getElementById('inputID');
-  let pw = document.getElementById('inputPw');
+  let id = document.getElementById('regInputID');
+  let pw = document.getElementById('regInputPw');
   let adminCheck = document.getElementById('checkAdmin');
 
   id.value = '';
@@ -101,4 +103,5 @@ export function emptyRegFields() {
 
 // Show / close the form
 showRegBtn.addEventListener('click', showRegistrationForm);
+showRegLink.addEventListener('click', showRegistrationForm);
 regCloseBtn.addEventListener('click', hideRegistrationForm);
