@@ -1,65 +1,105 @@
 import { idMinLength, pwMinLength } from "./main.js";
+import { findDuplicateID } from "./utils.js";
 
 //////////////
 // DOM elements
+let pollContainer = document.getElementById('poll-container');
 let form = document.getElementById('registrationForm');
-let idField = document.getElementById('inputID');
-let pwField = document.getElementById('inputPw');
 let errorMsgID = document.getElementById('errorMsgID');
 let errorMsgPw = document.getElementById('errorMsgPw');
-const regBtn = document.getElementById('registrationBtn');
+const showRegBtn = document.getElementById('showRegForm');
+let regBtn = document.getElementById('registrationBtn');
+const regCloseBtn = document.getElementById('regCloseBtn');
+const toast = document.getElementById('regToast');
 
 
 // Validating
 function validateID(userID) {
   if (userID.length < idMinLength) {
     errorMsgID.innerHTML = `Minimipituus ${idMinLength} merkkiä.`;
-    console.log("ID failed");
     return false;
   }
-  errorMsgID = '';
+  if (findDuplicateID(userID)) {
+    errorMsgID.innerHTML = `Käyttäjätunnus on jo rekisteröity.`;
+    return false;
+  }
+
+  errorMsgID.innerHTML = '';
   return true;
 }
 
 function validatePassword(password) {
   if (password.length < pwMinLength) {
     errorMsgPw.innerHTML = `Minimipituus ${pwMinLength} merkkiä.`;
-    console.log("Pw failed");
     return false;
   }
-  errorMsgPw = '';
+  errorMsgPw.innerHTML = '';
   return true;
 }
 
-// Sending
-regBtn.addEventListener('click', send);
+// Saving
+function saveToLocalStorage(idField, pwField, adminCheck) {
+  if (localStorage.getItem("users") === null) {
+    createDefaultUsers();
+  }
+  const users = localStorage.getItem("users");
+  const parsed = JSON.parse(users);
+  const newUser = {id: idField, pw: pwField, admin: adminCheck};
+  parsed.push(newUser);
+  const json = JSON.stringify(parsed);
+  localStorage.setItem("users", json);
+}
 
-function send() {
-  idField = document.getElementById('inputID').value;
-  pwField = document.getElementById('inputPw').value;
+// Sending
+function send() {   //TODO: feedback, empty fields
+  const idField = document.getElementById('inputID').value;
+  const pwField = document.getElementById('inputPw').value;
+  const adminCheck = document.getElementById('checkAdmin').checked;
   
   if (validateID(idField)
     & validatePassword(pwField)) {
-      console.log("ONNISTUI");
-      saveToJson(idField, pwField);
+      emptyRegFields();
+      saveToLocalStorage(idField, pwField, adminCheck);
+      // Show success message
+      const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toast);
+      toastBootstrap.show();
+      hideRegistrationForm();
       return true;
     };
-
-  console.log("EPÄONNISTUI");
-  return false;
+    return false;
 }
-
-function saveToLocalStorage(idField, pwField) {
-  const obj = {name: idField, pw: pwField, admin: false};
-  const json = JSON.stringify(obj);
-  localStorage.setItem("users", json);  // TODO: array
-}
+regBtn.addEventListener('click', send);
 
 // Exports
 export function showRegistrationForm() {
   form.classList.replace('invisible', 'visible');
+  pollContainer.classList.add('blur');
 }
 
 export function hideRegistrationForm() {
   form.classList.replace('visible', 'invisible');
+  pollContainer.classList.remove('blur');
 }
+
+export function createDefaultUsers() {
+  if (localStorage.getItem("users") !== null) return;
+  console.log("Local Storage empty. Creating default users");
+
+  const users = [{id: "admin", pw: "admin", admin: true}, {id: "user", pw: "user", admin: false}];
+  const json = JSON.stringify(users);
+  localStorage.setItem("users", json);
+}
+
+export function emptyRegFields() {
+  let id = document.getElementById('inputID');
+  let pw = document.getElementById('inputPw');
+  let adminCheck = document.getElementById('checkAdmin');
+
+  id.value = '';
+  pw.value = '';
+  adminCheck.checked = false;
+}
+
+// Show / close the form
+showRegBtn.addEventListener('click', showRegistrationForm);
+regCloseBtn.addEventListener('click', hideRegistrationForm);
