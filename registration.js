@@ -1,5 +1,5 @@
 import { idMinLength, pwMinLength } from "./main.js";
-import { findDuplicateID } from "./utils.js";
+import { findDuplicateID, showToast } from "./utils.js";
 
 //////////////
 // DOM elements
@@ -10,9 +10,8 @@ let errorMsgPw = document.getElementById('errorMsgPw');
 const showRegBtn = document.getElementById('showRegForm');
 let regBtn = document.getElementById('registrationBtn');
 const regCloseBtn = document.getElementById('regCloseBtn');
-const toast = document.getElementById('regToast');
 
-
+//////////////
 // Validating
 function validateID(userID) {
   if (userID.length < idMinLength) {
@@ -37,6 +36,7 @@ function validatePassword(password) {
   return true;
 }
 
+//////////////
 // Saving
 function saveToLocalStorage(idField, pwField, adminCheck) {
   if (localStorage.getItem("users") === null) {
@@ -60,9 +60,7 @@ function send() {   //TODO: feedback, empty fields
     & validatePassword(pwField)) {
       emptyRegFields();
       saveToLocalStorage(idField, pwField, adminCheck);
-      // Show success message
-      const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toast);
-      toastBootstrap.show();
+      showToast('Tunnuksen luonti onnistui', 'Voit nyt kirjautua sisään.');
       hideRegistrationForm();
       return true;
     };
@@ -70,6 +68,7 @@ function send() {   //TODO: feedback, empty fields
 }
 regBtn.addEventListener('click', send);
 
+//////////////
 // Exports
 export function showRegistrationForm() {
   form.classList.replace('invisible', 'visible');

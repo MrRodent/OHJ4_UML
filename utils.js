@@ -15,3 +15,15 @@ export function findDuplicateID(idToFind) {
     }
     return false;
 }
+
+// Success message
+const toast = document.getElementById('liveToast');
+export function showToast(header, msg) {
+  let toastHeader = document.getElementById('toastHeader');
+  toastHeader.textContent = header;
+  let toastMsg = document.getElementById('toastMsg');
+  toastMsg.textContent = msg;
+
+  const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toast);
+  toastBootstrap.show();
+}
