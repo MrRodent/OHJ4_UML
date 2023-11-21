@@ -1,5 +1,5 @@
 import { hideRegistrationForm } from "./registration.js";
-import { findID, getUsers, showToast } from "./utils.js";
+import { findID, getUsers, isUserAdmin, showToast } from "./utils.js";
 
 //////////////
 // DOM elements
@@ -55,6 +55,13 @@ function updateNavbarOnLogin(id) {
   regLinks.forEach(link => {
     link.classList.add('disabled');
   });
+
+  if (isUserAdmin(id)) {
+    const createBtns = document.querySelectorAll('.create-poll-link');
+    createBtns.forEach(button => {
+      button.classList.remove('invisible');
+    });
+  }
 }
 
 function showVotingOptions() {
@@ -126,7 +133,7 @@ function logOut() {
   showToast('Hei hei!', 'Olet nyt kirjautunut ulos');
 }
 
-function updateNavbarOnLogout(id) {
+function updateNavbarOnLogout() {
   let nameDisplay = document.getElementById('nav-left-id');
   nameDisplay.textContent = '';
 
@@ -134,12 +141,19 @@ function updateNavbarOnLogout(id) {
   loginLinks.forEach(link => {
     link.removeEventListener('click', logOut);
     link.addEventListener('click', showLoginForm);
-    link.textContent = 'Kirjaudu';
+    if (link.id !== 'login-link-form') {
+      link.textContent = 'Kirjaudu sisään';
+    }
   });
 
   const regLinks = document.querySelectorAll('.register-link');
   regLinks.forEach(link => {
     link.classList.remove('disabled');
+  });
+
+  const createBtns = document.querySelectorAll('.create-poll-link');
+  createBtns.forEach(button => {
+    button.classList.add('invisible');
   });
 }
 
@@ -148,7 +162,9 @@ function updateNavbarOnLogout(id) {
 const loginLinks = document.querySelectorAll('.login-link');
 loginLinks.forEach(link => {
   link.addEventListener('click', showLoginForm);
-  link.textContent = 'Kirjaudu';
+  if (link.id !== 'login-link-form') {
+    link.textContent = 'Kirjaudu sisään';
+  }
 });
 
 const loginCloseBtn = document.getElementById('loginCloseBtn');

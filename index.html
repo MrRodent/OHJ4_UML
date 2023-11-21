@@ -21,14 +21,16 @@
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Valikko</a>
               <div class="dropdown-menu" aria-labelledby="dropdownId">
+                <a class="dropdown-item create-poll-link d-sm-none invisible" href="#">Luo äänestys</a>
                 <a class="dropdown-item login-link" href="#">Kirjaudu</a>
-                <a id="showRegForm" class="dropdown-item register-link" href="#">Rekisteröidy</a>
+                <a class="dropdown-item register-link" href="#">Rekisteröidy</a>
               </div>
             </li>
           </ul>
+          <button id="create-poll-button" type="button" class="btn me-4 btn-outline-info create-poll-link d-none d-sm-block invisible">Luo äänestys</button>
           <div class="text-end">
             <p id="nav-left-id"class="navbar-nav" href="#"></p>
-            <a id="nav-left-login-link" class="navbar-nav login-link" href="#">Kirjaudu</a>
+            <a id="nav-left-login-link" class="navbar-nav login-link d-none d-sm-block" href="#">Kirjaudu</a>
           </div>
       </div>
     </nav>
@@ -42,7 +44,7 @@
       </div>
       <div class="p-5">
         <h2>Rekisteröidy</h2>
-        <p id="ohje" class="text-secondary small">Oletko jo rekisteröitynyt?<br>Kirjaudu sisään <a class="login-link" href="#">tästä</a></p>
+        <p id="ohje" class="text-secondary small">Oletko jo rekisteröitynyt?<br>Kirjaudu sisään <a id="login-link-form" class="login-link" href="#">tästä</a></p>
         
         <div class="col-md-6 form-floating">
           <input id="regInputID" type="text" class="form-control">

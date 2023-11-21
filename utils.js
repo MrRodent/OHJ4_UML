@@ -16,6 +16,18 @@ export function findID(idToFind) {
   return false;
 }
 
+export function isUserAdmin(id) {
+  const users = getUsers();
+  for (const user of users) {
+    if (id === user.id) {
+      if (user.admin) {
+        return true;
+      }
+      return false;
+    }
+  }
+}
+
 // Success message
 const toast = document.getElementById('liveToast');
 export function showToast(header, msg) {
