@@ -92,7 +92,7 @@ function send() {
     hideLoginForm();
     updateNavbarOnLogin(idField);
     showVotingOptions();
-    // TODO: KIRJAUDU
+    // TODO: Kirjaudu
 
   }
 }
