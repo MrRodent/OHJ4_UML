@@ -7,13 +7,9 @@ let pollContainer = document.getElementById('poll-container');
 let form = document.getElementById('loginForm');
 let errorMsgID = document.getElementById('loginErrorMsgID');
 let errorMsgPw = document.getElementById('loginErrorMsgPw');
-const showLoginBtn = document.getElementById('showLoginForm');
-const showLoginLink = document.getElementById('showLoginFormLink');
-const loginBtn = document.getElementById('loginBtn');
-const loginCloseBtn = document.getElementById('loginCloseBtn');
 
 //////////////
-// Validating
+// Logging in
 function checkID(id, password) {
   if (!findID(id)) {
     errorMsgID.innerHTML = 'Käyttäjätunnusta ei löydy';
@@ -44,6 +40,40 @@ export function showLoginForm() {
   pollContainer.classList.add('blur');
 }
 
+function updateNavbarOnLogin(id) {
+  let nameDisplay = document.getElementById('nav-left-id');
+  nameDisplay.textContent = id;
+
+  const loginLinks = document.querySelectorAll('.login-link');
+  loginLinks.forEach(link => {
+    link.removeEventListener('click', showLoginForm);
+    link.addEventListener('click', logOut);
+    link.textContent = 'Kirjaudu ulos';
+  });
+
+  const regLinks = document.querySelectorAll('.register-link');
+  regLinks.forEach(link => {
+    link.classList.add('disabled');
+  });
+}
+
+function showVotingOptions() {
+  const voteButtons = document.querySelectorAll('.vote-button');
+  voteButtons.forEach(button => {
+    button.classList.remove('invisible');
+  })
+
+  const resultButtons = document.querySelectorAll('.result-button');
+  resultButtons.forEach(button => {
+    button.classList.remove('invisible');
+  })
+
+  const loginReminders = document.querySelectorAll('.login-reminder');
+  loginReminders.forEach(text => {
+    text.classList.add('invisible');
+  });
+}
+
 // Sending
 function send() {
   const idField = document.getElementById('loginInputID').value;
@@ -53,11 +83,12 @@ function send() {
     showToast(`Tervetuloa ${idField}`, 'Olet nyt kirjautunut sisään.');
     emptyLoginFields();
     hideLoginForm();
+    updateNavbarOnLogin(idField);
+    showVotingOptions();
     // TODO: KIRJAUDU
+
   }
 }
-loginBtn.addEventListener('click', send);
-
 
 export function emptyLoginFields() {
   let id = document.getElementById('loginInputID');     // TODO: listata nämä tiedoston alkuun vai purkaa lista?  on myös regissä
@@ -69,7 +100,59 @@ export function emptyLoginFields() {
   pw.value = '';
 }
 
-// Show / close the form
-showLoginBtn.addEventListener('click', showLoginForm);
-showLoginLink.addEventListener('click', showLoginForm);
+//////////////
+// Logging out
+function hideVotingOptions() {
+  const voteButtons = document.querySelectorAll('.vote-button');
+  voteButtons.forEach(button => {
+    button.classList.add('invisible');
+  })
+
+  const resultButtons = document.querySelectorAll('.result-button');
+  resultButtons.forEach(button => {
+    button.classList.add('invisible');
+  })
+
+  const loginReminders = document.querySelectorAll('.login-reminder');
+  loginReminders.forEach(text => {
+    text.classList.remove('invisible');
+  });
+}
+
+function logOut() {
+  console.log("Logged out");
+  updateNavbarOnLogout();
+  hideVotingOptions();
+  showToast('Hei hei!', 'Olet nyt kirjautunut ulos');
+}
+
+function updateNavbarOnLogout(id) {
+  let nameDisplay = document.getElementById('nav-left-id');
+  nameDisplay.textContent = '';
+
+  const loginLinks = document.querySelectorAll('.login-link');
+  loginLinks.forEach(link => {
+    link.removeEventListener('click', logOut);
+    link.addEventListener('click', showLoginForm);
+    link.textContent = 'Kirjaudu';
+  });
+
+  const regLinks = document.querySelectorAll('.register-link');
+  regLinks.forEach(link => {
+    link.classList.remove('disabled');
+  });
+}
+
+//////////////
+// Links and buttons
+const loginLinks = document.querySelectorAll('.login-link');
+loginLinks.forEach(link => {
+  link.addEventListener('click', showLoginForm);
+  link.textContent = 'Kirjaudu';
+});
+
+const loginCloseBtn = document.getElementById('loginCloseBtn');
 loginCloseBtn.addEventListener('click', hideLoginForm);
+
+const loginBtn = document.getElementById('loginBtn');
+loginBtn.addEventListener('click', send);

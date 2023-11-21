@@ -15,17 +15,21 @@
     <!-- Navigaatio -->
     <nav class="navbar navbar-expand-sm navbar-light bg-body-tertiary">
         <div class="container space-between">
-        <a class="navbar-brand" href="index.html">Äänestys</a>
+          <a class="navbar-brand" href="index.html">Äänestys</a>
           <ul class="navbar-nav me-auto mt-2 mt-lg-0">
             <!-- Dropdown -->
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Valikko</a>
               <div class="dropdown-menu" aria-labelledby="dropdownId">
-                <a id="showLoginForm" class="dropdown-item" href="#">Kirjaudu</a>
-                <a id="showRegForm" class="dropdown-item" href="#">Rekisteröidy</a>
+                <a class="dropdown-item login-link" href="#">Kirjaudu</a>
+                <a id="showRegForm" class="dropdown-item register-link" href="#">Rekisteröidy</a>
               </div>
             </li>
           </ul>
+          <div class="text-end">
+            <p id="nav-left-id"class="navbar-nav" href="#"></p>
+            <a id="nav-left-login-link" class="navbar-nav login-link" href="#">Kirjaudu</a>
+          </div>
       </div>
     </nav>
   </header>
@@ -38,7 +42,7 @@
       </div>
       <div class="p-5">
         <h2>Rekisteröidy</h2>
-        <p id="ohje" class="text-secondary small">Oletko jo rekisteröitynyt?<br>Kirjaudu sisään <a id="showLoginFormLink" href="#">tästä</a></p>
+        <p id="ohje" class="text-secondary small">Oletko jo rekisteröitynyt?<br>Kirjaudu sisään <a class="login-link" href="#">tästä</a></p>
         
         <div class="col-md-6 form-floating">
           <input id="regInputID" type="text" class="form-control">
@@ -70,7 +74,7 @@
       </div>
       <div class="p-5">
         <h2>Kirjaudu sisään</h2>
-        <p id="ohje" class="text-secondary small">Eikö sinulla ole vielä käyttäjätunnusta?<br>Luo se <a id="showRegFormLink" href="#">tästä</a></p>
+        <p id="ohje" class="text-secondary small">Eikö sinulla ole vielä käyttäjätunnusta?<br>Luo se <a class="register-link" href="#">tästä</a></p>
         
         <div class="col-md-6 form-floating">
           <input id="loginInputID" type="text" class="form-control">

@@ -128,18 +128,24 @@ export class pollCard {
         // Footer
         const footer = document.createElement('div');
         footer.classList.add('card-footer', 'd-flex', 'justify-content-between');
-        
+
         // Result button
         const resultBtn = document.createElement('button');
-        resultBtn.classList.add('btn', 'btn-sm');
+        resultBtn.classList.add('btn', 'btn-sm', 'result-button', 'invisible');
         resultBtn.type = 'button';
         resultBtn.id = `result-button-${this.id}`;
         resultBtn.textContent = 'Katso tulokset';
         footer.appendChild(resultBtn);
 
+        // Login reminder (when not signed in)
+        const logTxt = document.createElement('p');
+        logTxt.classList.add('small', 'm-auto', 'fst-italic', 'login-reminder');
+        logTxt.textContent = 'Kirjaudu sisään äänestääksesi';
+        footer.appendChild(logTxt);
+
         // Vote button
         const voteBtn = document.createElement('button');
-        voteBtn.classList.add('btn', 'btn-outline-light');
+        voteBtn.classList.add('btn', 'btn-outline-light', 'vote-button', 'invisible');
         voteBtn.type = 'button';
         voteBtn.id = `vote-button-${this.id}`;
         voteBtn.textContent = 'Äänestä';

@@ -8,10 +8,6 @@ let pollContainer = document.getElementById('poll-container');
 let form = document.getElementById('registrationForm');
 let errorMsgID = document.getElementById('regErrorMsgID');
 let errorMsgPw = document.getElementById('regErrorMsgPw');
-const showRegBtn = document.getElementById('showRegForm');
-const showRegLink = document.getElementById('showRegFormLink');
-const regBtn = document.getElementById('registrationBtn');
-const regCloseBtn = document.getElementById('regCloseBtn');
 
 //////////////
 // Validating
@@ -67,7 +63,6 @@ function send() {
     };
     return false;
 }
-regBtn.addEventListener('click', send);
 
 //////////////
 // Exports
@@ -84,7 +79,7 @@ export function showRegistrationForm() {
 
 export function createDefaultUsers() {
   if (localStorage.getItem("users") !== null) return;
-  console.log("Local Storage empty. Creating default users");
+  console.log("Local storage empty. Creating default users");
 
   const users = [{id: "admin", pw: "admin", admin: true}, {id: "user", pw: "user", admin: false}];
   const json = JSON.stringify(users);
@@ -101,7 +96,15 @@ export function emptyRegFields() {
   adminCheck.checked = false;
 }
 
-// Show / close the form
-showRegBtn.addEventListener('click', showRegistrationForm);
-showRegLink.addEventListener('click', showRegistrationForm);
+//////////////
+// Links and buttons
+const regLinks = document.querySelectorAll('.register-link');
+regLinks.forEach(link => {
+  link.addEventListener('click', showRegistrationForm);
+});
+
+const regCloseBtn = document.getElementById('regCloseBtn');
 regCloseBtn.addEventListener('click', hideRegistrationForm);
+
+const regBtn = document.getElementById('registrationBtn');
+regBtn.addEventListener('click', send);
