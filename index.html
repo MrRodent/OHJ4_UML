@@ -23,11 +23,11 @@
               <div class="dropdown-menu" aria-labelledby="dropdownId">
                 <a class="dropdown-item login-link" href="#">Kirjaudu</a>
                 <a class="dropdown-item register-link" href="#">Rekisteröidy</a>
-                <a class="dropdown-item create-poll-link d-sm-none invisible" href="#">Luo äänestys</a>
+                <a class="dropdown-item open-poll-creation d-sm-none invisible" href="#" data-bs-toggle="modal" data-bs-target="#poll-creation">Luo äänestys</a>
               </div>
             </li>
           </ul>
-          <button id="create-poll-button" type="button" class="btn me-4 btn-outline-info create-poll-link d-none d-sm-block invisible">Luo äänestys</button>
+          <button type="button" class="btn me-4 btn-outline-info open-poll-creation d-none d-sm-block invisible" data-bs-toggle="modal" data-bs-target="#poll-creation">Luo äänestys</button>
           <div class="text-end">
             <p id="nav-left-id"class="navbar-nav" href="#"></p>
             <a id="nav-left-login-link" class="navbar-nav login-link d-none d-sm-block" href="#">Kirjaudu</a>
@@ -149,38 +149,44 @@
                 <label for="new-poll-option1" class="col-sm-2 col-form-label col-form-label">Vaihtoehdot</label>
                 <p class="text-info small fst-italic">Anna vähintään kaksi äänestysvaihtoehtoa.</p>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control form-control-sm" id="new-poll-option1" placeholder="Vaihtoehto 1">
+                  <input type="text" class="form-control form-control-sm new-poll-option" id="new-poll-option1" placeholder="Vaihtoehto 1">
                 </div>
               </div>
               <div class="row mb-1">
                 <div class="col-sm-10">
-                  <input type="text" class="form-control form-control-sm" id="new-poll-option2" placeholder="Vaihtoehto 2">
+                  <input type="text" class="form-control form-control-sm new-poll-option" id="new-poll-option2" placeholder="Vaihtoehto 2">
                 </div>
               </div>
               <div class="row mb-1">
                 <div class="col-sm-10">
-                  <input type="text" class="form-control form-control-sm" id="new-poll-option3" placeholder="Vaihtoehto 3">
+                  <input type="text" class="form-control form-control-sm new-poll-option" id="new-poll-option3" placeholder="Vaihtoehto 3">
                 </div>
               </div>
               <div class="row mb-1">
                 <div class="col-sm-10">
-                  <input type="text" class="form-control form-control-sm" id="new-poll-option4" placeholder="Vaihtoehto 4">
+                  <input type="text" class="form-control form-control-sm new-poll-option" id="new-poll-option4" placeholder="Vaihtoehto 4">
                 </div>
               </div>
               <div class="row mb-1">
                 <div class="col-sm-10">
-                  <input type="text" class="form-control form-control-sm" id="new-poll-option5" placeholder="Vaihtoehto 5">
+                  <input type="text" class="form-control form-control-sm new-poll-option" id="new-poll-option5" placeholder="Vaihtoehto 5">
                 </div>
               </div>
             </div>
             <div class="row mb-1">
               <p id="new-poll-error" class="text-danger small fst-italic">Vaihtoehdon maksimipituus on 30 merkkiä.</p>
             </div>
+            <div class="row mb-1">
+              <p id="new-poll-error" class="text-danger small fst-italic">Vaihtoehdon maksimipituus on 30 merkkiä.</p>
+            </div>
+            <div class="row mb-1">
+              <!-- testiäänet -->
+            </div>
             
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Sulje</button>
-            <button type="button" class="btn btn-primary">Luo äänestys</button>
+            <button type="button" id="create-poll-button" class="btn btn-primary" data-bs-dismiss="modal">Luo äänestys</button>
           </div>
         </div>
       </div>

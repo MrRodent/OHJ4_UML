@@ -57,7 +57,7 @@ function updateNavbarOnLogin(id) {
   });
 
   if (isUserAdmin(id)) {
-    const createBtns = document.querySelectorAll('.create-poll-link');
+    const createBtns = document.querySelectorAll('.open-poll-creation');
     createBtns.forEach(button => {
       button.classList.remove('invisible');
     });
@@ -151,7 +151,7 @@ function updateNavbarOnLogout() {
     link.classList.remove('disabled');
   });
 
-  const createBtns = document.querySelectorAll('.create-poll-link');
+  const createBtns = document.querySelectorAll('.open-poll-creation');
   createBtns.forEach(button => {
     button.classList.add('invisible');
   });

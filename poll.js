@@ -267,11 +267,22 @@ export class pollCard {
 
 //////////////
 // Poll creating tools
-const createBtns = document.querySelectorAll('.create-poll-link');
-createBtns.forEach(button => {
-  button.addEventListener('click', createNewPoll);
-});
-
+const createBtn = document.getElementById('create-poll-button');
+// TODO: find out how to disable the btn until enough input in fields
 export function createNewPoll() {
-  console.log("creating new poll");
+  const id = 0; // TODO: give and store ids
+  const subject = document.getElementById('new-poll-header').value;
+  const description = document.getElementById('new-poll-description').value;
+
+  let optionArray = [];
+  const options = document.querySelectorAll('.new-poll-option');
+  options.forEach(option => {
+    if (option.value !== '') {
+      optionArray.push(option.value);
+    }
+  });
+
+  const card = new pollCard(id, subject, description, optionArray);
+  return card;  // TODO: if needed
 }
+createBtn.addEventListener('click', createNewPoll);
