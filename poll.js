@@ -5,7 +5,7 @@ export class pollCard {
     this.description = description;
     this.choices = choices;
     // Adds a random number of votes for testing purposes
-    this.testVotes = testVotes || 0;
+    this.testVotes = testVotes;
     
     this.pollName = `poll${id}`;
     this.totalVotes = 0;
@@ -16,7 +16,7 @@ export class pollCard {
     this.voteCounts = {};
     choices.forEach((choice, index) => {
       if (testVotes) {
-        const random = Math.floor(Math.random() * testVotes) + 10;
+        const random = Math.floor(Math.random() * 100) + 10;
         this.totalVotes += random;
         this.voteCounts[index] = random;
       } else {
@@ -269,6 +269,7 @@ export class pollCard {
 // Poll creating tools
 const createBtn = document.getElementById('create-poll-button');
 // TODO: find out how to disable the btn until enough input in fields
+//       unlock newly created polls for voting
 export function createNewPoll() {
   const id = 0; // TODO: give and store ids
   const subject = document.getElementById('new-poll-header').value;
@@ -281,8 +282,9 @@ export function createNewPoll() {
       optionArray.push(option.value);
     }
   });
-
-  const card = new pollCard(id, subject, description, optionArray);
+  
+  const testVotes = document.getElementById('test-votes').checked;
+  const card = new pollCard(id, subject, description, optionArray, testVotes);
   return card;  // TODO: if needed
 }
 createBtn.addEventListener('click', createNewPoll);
