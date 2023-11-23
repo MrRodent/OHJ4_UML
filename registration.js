@@ -9,26 +9,34 @@ let form = document.getElementById('registrationForm');
 let errorMsgID = document.getElementById('regErrorMsgID');
 let errorMsgPw = document.getElementById('regErrorMsgPw');
 
+const idField = document.getElementById('regInputID');
+const pwField = document.getElementById('regInputPw');
+
 //////////////
 // Validating
 function validateID(userID) {
   if (userID.length < idMinLength) {
+    idField.classList.add('is-invalid');
     errorMsgID.innerHTML = `Minimipituus ${idMinLength} merkkiä.`;
     return false;
   }
   if (findID(userID)) {
+    idField.classList.add('is-invalid');
     errorMsgID.innerHTML = `Käyttäjätunnus on jo rekisteröity.`;
     return false;
   }
   errorMsgID.innerHTML = '';
+  idField.classList.remove('is-invalid');
   return true;
 }
 
 function validatePassword(password) {
   if (password.length < pwMinLength) {
+    pwField.classList.add('is-invalid');
     errorMsgPw.innerHTML = `Minimipituus ${pwMinLength} merkkiä.`;
     return false;
   }
+  pwField.classList.remove('is-invalid');
   errorMsgPw.innerHTML = '';
   return true;
 }
@@ -49,16 +57,14 @@ function saveToLocalStorage(idField, pwField, adminCheck) {
 
 // Sending
 function send() {
-  const idField = document.getElementById('regInputID').value;
-  const pwField = document.getElementById('regInputPw').value;
   const adminCheck = document.getElementById('checkAdmin').checked;
   
-  if (validateID(idField)
-    & validatePassword(pwField)) {
+  if (validateID(idField.value)
+    & validatePassword(pwField.value)) {
       emptyRegFields();
-      saveToLocalStorage(idField, pwField, adminCheck);
+      saveToLocalStorage(idField.value, pwField.value, adminCheck);
       showToast('Tunnuksen luonti onnistui', 'Voit nyt kirjautua sisään.');
-      hideRegistrationForm();
+      hideRegistrationForm();      
       return true;
     };
     return false;

@@ -46,16 +46,16 @@
         <h2>Rekisteröidy</h2>
         <p id="ohje" class="text-secondary small">Oletko jo rekisteröitynyt?<br>Kirjaudu sisään <a id="login-link-form" class="login-link" href="#">tästä</a></p>
         
-        <div class="col-md-6 form-floating">
+        <div class="col-md-6 mb-3 form-floating">
           <input id="regInputID" type="text" class="form-control">
           <label for="regInputID" class="form-label">Käyttäjätunnus</label>
-          <p class="text-danger small" id="regErrorMsgID"></p>
+          <p class="invalid-feedback" id="regErrorMsgID">Minimipituus 3 merkkiä.</p>
         </div>
   
         <div class="col-md-6 mb-2 form-floating">
           <input type="password" class="form-control" id="regInputPw">
           <label for="regInputPw" class="form-label">Salasana</label>
-          <p class="text-danger small" id="regErrorMsgPw"></p>
+          <p class="invalid-feedback" id="regErrorMsgPw"></p>
         </div>
   
         <div class="col-md-6 mb-2">
@@ -78,16 +78,16 @@
         <h2>Kirjaudu sisään</h2>
         <p id="ohje" class="text-secondary small">Eikö sinulla ole vielä käyttäjätunnusta?<br>Luo se <a class="register-link" href="#">tästä</a></p>
         
-        <div class="col-md-6 form-floating">
+        <div class="col-md-6 mb-3 form-floating">
           <input id="loginInputID" type="text" class="form-control">
           <label for="loginInputID" class="form-label">Käyttäjätunnus</label>
-          <p class="text-danger small" id="loginErrorMsgID"></p>
+          <p class="invalid-feedback" id="loginErrorMsgID"></p>
         </div>
   
         <div class="col-md-6 mb-2 form-floating">
           <input type="password" class="form-control" id="loginInputPw">
           <label for="loginInputPw" class="form-label">Salasana</label>
-          <p class="text-danger small" id="loginErrorMsgPw"></p>
+          <p class="invalid-feedback" id="loginErrorMsgPw"></p>
         </div>
   
         <div class="col-12 text-end">

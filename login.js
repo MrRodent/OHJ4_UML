@@ -7,21 +7,28 @@ let pollContainer = document.getElementById('poll-container');
 let form = document.getElementById('loginForm');
 let errorMsgID = document.getElementById('loginErrorMsgID');
 let errorMsgPw = document.getElementById('loginErrorMsgPw');
+const idField = document.getElementById('loginInputID');
+const pwField = document.getElementById('loginInputPw');
 
 //////////////
 // Logging in
 function checkID(id, password) {
   if (!findID(id)) {
+    idField.classList.add('is-invalid');
     errorMsgID.innerHTML = 'Käyttäjätunnusta ei löydy';
     return false;
+  } else {
+    idField.classList.remove('is-invalid');
   }
 
   let users = getUsers();
   for (const user of users) {
     if (id === user.id) {
         if (password === user.pw) {
+          pwField.classList.remove('is-invalid');
           return true;
         } else {
+          pwField.classList.add('is-invalid');
           errorMsgPw.innerHTML = 'Väärä salasana'
         }
     }
@@ -82,15 +89,12 @@ function showVotingOptions() {
 }
 
 // Sending
-function send() {
-  const idField = document.getElementById('loginInputID').value;
-  const pwField = document.getElementById('loginInputPw').value;
-  
-  if (checkID(idField, pwField)) {
-    showToast(`Tervetuloa ${idField}`, 'Olet nyt kirjautunut sisään.');
+function send() {  
+  if (checkID(idField.value, pwField.value)) {
+    showToast(`Tervetuloa ${idField.value}`, 'Olet nyt kirjautunut sisään.');
     emptyLoginFields();
     hideLoginForm();
-    updateNavbarOnLogin(idField);
+    updateNavbarOnLogin(idField.value);
     showVotingOptions();
     // TODO: Kirjaudu
 
