@@ -83,7 +83,7 @@ function showRegistrationForm() {
 
 export function createDefaultUsers() {
   if (localStorage.getItem("users") !== null) return;
-  console.log("Local storage empty. Creating default users");
+  console.log("No users in local storage. Creating default users.");
 
   const users = [{id: "admin", pw: "admin", admin: true}, {id: "user", pw: "user", admin: false}];
   const json = JSON.stringify(users);

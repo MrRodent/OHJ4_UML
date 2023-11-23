@@ -1,4 +1,5 @@
 import { showVotingOptions } from "./login.js";
+import { getPolls } from "./utils.js";
 
 export class pollCard {
   constructor (id, subject, description, choices, testVotes) {
@@ -178,7 +179,7 @@ export class pollCard {
         const index = choice.getAttribute('data-index');
         this.totalVotes++;
         this.voteCounts[index]++;
-        // Save to localStorage 
+        // TODO: Save to localStorage 
     }
 
     getPercentage(voteCount) {
@@ -268,12 +269,18 @@ export class pollCard {
 }
 
 //////////////
-// Poll creating tools
+// Poll creation tools
 const createBtn = document.getElementById('create-poll-button');
-// TODO: find out how to disable the btn until enough input in fields
-//       unlock newly created polls for voting
+
+function emptyNewPollFields() {
+  let inputs = document.querySelectorAll('.new-poll-input');
+  inputs.forEach(input => {
+    input.value = '';
+  });
+}
+
 function createNewPoll() {
-  const id = 0; // TODO: give and store ids
+  const id = (getPolls().length + 1);
   const subject = document.getElementById('new-poll-header').value;
   const description = document.getElementById('new-poll-description').value;
 
@@ -289,15 +296,24 @@ function createNewPoll() {
   const card = new pollCard(id, subject, description, optionArray, testVotes);
 
   showVotingOptions();
-  return card;  // TODO: if needed
+  emptyNewPollFields();
+  savePoll(card);
 }
 createBtn.addEventListener('click', createNewPoll);
 
-// Requires input to the fields before enabling the creation button.
+function savePoll(card) {
+  let polls = getPolls();
+  polls.push(card);
+  let json = JSON.stringify(polls);
+  localStorage.setItem('polls', json);
+}
+
+// Requires some input to the fields before enabling the creation button.
 function checkPollInputs() {
   const requiredInputs = document.querySelectorAll('.required-poll-input');
   const pollOptions = document.querySelectorAll('.new-poll-option');
   const pollError = document.getElementById('new-poll-error');
+
   const checkInputFields = () => {
     let allFieldsValid = true;
     let optionsUnder30 = true;
@@ -333,5 +349,18 @@ function checkPollInputs() {
     input.addEventListener('keyup', checkInputFields);
   });
 }
-
 checkPollInputs();
+
+export function createDefaultPolls() {
+  if (localStorage.getItem("polls") !== null) return;
+  console.log("No polls in local storage. Creating default polls");
+
+  let polls = [];
+  const card0 = new pollCard(0, 'Lempieläin', 'Mikä on lempieläimesi?', ['Kissa', 'Koira'], true);
+  const card1 = new pollCard(1, 'Ohjelmointikielet', 'Mikä on paras ohjelmointikieli?', ['Python', 'JavaScript', 'C', 'Scratch'], true);
+  const card2 = new pollCard(2, 'Äänestäminen', 'Aiotko äänestää?', ['Kyllä', 'En', 'Ehkä'], true);
+  polls.push(card0, card1, card2);
+
+  const json = JSON.stringify(polls);
+  localStorage.setItem("polls", json);
+}

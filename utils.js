@@ -1,4 +1,5 @@
-// Returns all the registered users
+import { pollCard } from "./poll.js";
+
 export function getUsers() {
   const users = localStorage.getItem("users");
   const parsed = JSON.parse(users);
@@ -26,6 +27,21 @@ export function isUserAdmin(id) {
       return false;
     }
   }
+}
+
+export function getPolls() {
+  const polls = localStorage.getItem("polls");
+  const parsed = JSON.parse(polls);
+  return parsed;
+}
+
+// TODO: Currently this creates new polls when called
+// - could optionally return vote counts
+export function loadPolls() {
+  const polls = getPolls();
+  polls.forEach(poll => {
+    const card = new pollCard(poll.id, poll.subject, poll.description, poll.choices, poll.testVotes);
+  });
 }
 
 // Success message
