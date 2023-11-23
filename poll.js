@@ -40,6 +40,18 @@ export class pollCard {
     const div1 = document.createElement('div');
     div1.classList.add('card');
     newCard.appendChild(div1);
+
+    // Delete button
+    const deleteBtnDiv = document.createElement('div');
+    deleteBtnDiv.classList.add('float-end', 'm-1', 'position-absolute', 'delete-button'); // TODO: d-none
+    const deleteBtn = document.createElement('button');
+    deleteBtn.id = `delete-button${this.id}`;
+    deleteBtn.type = 'button';
+    deleteBtn.classList.add('btn-close');
+    deleteBtn.setAttribute('aria-label', 'Delete');
+    deleteBtnDiv.appendChild(deleteBtn);
+    div1.appendChild(deleteBtnDiv);
+    
     const div2 = document.createElement('div');
     div2.classList.add('card-body', 'text-center');
     div1.appendChild(div2);
@@ -157,6 +169,11 @@ export class pollCard {
     div1.appendChild(footer);
     pollContainer.appendChild(newCard);
 
+    // Delete button functionality
+    deleteBtn.addEventListener('click', () => {
+      this.deletePoll(newCard, deleteBtn);
+    })
+
     // Result button functionality
     resultBtn.addEventListener('click', (event) => {
       event.preventDefault();
@@ -188,6 +205,49 @@ export class pollCard {
       }
       const float = (voteCount / this.totalVotes) * 100;
       return float.toFixed(1);
+    }
+
+    deletePoll(card, deleteBtn) {
+      deleteBtn.classList.add('disabled');
+      const div1 = card.firstElementChild;
+
+      // Create the HTML elements
+      const div = document.createElement('div');
+      div.classList.add('bg-danger-subtle', 'rounded-2');
+      const confirmText = document.createElement('p');
+      confirmText.classList.add('text-center', 'm-2', 'small', 'fst-italic');
+      confirmText.textContent = 'Haluatko varmasti poistaa äänestyksen?';
+      div.appendChild(confirmText);
+      
+      const buttonDiv = document.createElement('div');
+      buttonDiv.classList.add('text-center', 'm-2');
+
+      const confirmBtn = document.createElement('button');
+      confirmBtn.type = 'button';
+      confirmBtn.classList.add('btn', 'btn-sm', 'btn-outline-light', 'm-1');
+      confirmBtn.textContent = 'Kyllä';
+
+      const declineBtn = document.createElement('button');
+      declineBtn.type = 'button';
+      declineBtn.classList.add('btn', 'btn-sm', 'btn-outline-light', 'm-1');
+      declineBtn.textContent = 'En, älä poista';
+
+      buttonDiv.appendChild(confirmBtn);
+      buttonDiv.appendChild(declineBtn);
+      div.appendChild(buttonDiv);
+      div1.appendChild(div);
+
+      // Confirm button functionality
+      confirmBtn.addEventListener('click', () => {
+          card.remove();
+          // TODO: remove from local storage
+      });
+
+      // Decline button functionality
+      declineBtn.addEventListener('click', () => {
+        div1.removeChild(div);
+        deleteBtn.classList.remove('disabled');
+      });
     }
 
     showResults(resultBtn, voteBtn) {

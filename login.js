@@ -68,6 +68,11 @@ function updateNavbarOnLogin(id) {
     createBtns.forEach(button => {
       button.classList.remove('invisible');
     });
+
+    const deleteBtns = document.querySelectorAll('.delete-button');
+    deleteBtns.forEach(button => {
+      button.classList.remove('d-none');
+    });
   }
 }
 
