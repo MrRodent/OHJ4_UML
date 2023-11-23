@@ -288,3 +288,46 @@ export function createNewPoll() {
   return card;  // TODO: if needed
 }
 createBtn.addEventListener('click', createNewPoll);
+
+// Requires input to the fields before enabling the creation button.
+function checkPollInputs() {
+  const requiredInputs = document.querySelectorAll('.required-poll-input');
+  const pollOptions = document.querySelectorAll('.new-poll-option');
+  const pollError = document.getElementById('new-poll-error');
+  const checkInputFields = () => {
+    let allFieldsValid = true;
+    let optionsUnder30 = true;
+    requiredInputs.forEach(input => {
+      if (input.value.length < 1) {
+        allFieldsValid = false;
+      }
+
+      pollOptions.forEach(input => {
+        if (input.value.length > 30) {
+          allFieldsValid = false;
+          optionsUnder30 = false;
+          input.classList.add('is-invalid');
+          pollError.classList.remove('invisible');
+        } else {
+          input.classList.remove('is-invalid');
+        }
+      });
+
+      if (optionsUnder30) {
+        pollError.classList.add('invisible');
+      }
+    });
+    
+    if (allFieldsValid) {
+      createBtn.classList.remove('disabled');
+    } else {
+      createBtn.classList.add('disabled');
+    }
+  }
+
+  requiredInputs.forEach(input => {
+    input.addEventListener('keyup', checkInputFields);
+  });
+}
+
+checkPollInputs();

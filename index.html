@@ -134,13 +134,13 @@
               <div class="row mb-2">
                 <label for="new-poll-header" class="col-sm-2 col-form-label">Otsikko</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" id="new-poll-header" placeholder="Äänestyksen aihe">
+                  <input type="text" class="form-control required-poll-input" id="new-poll-header" placeholder="Äänestyksen aihe">
                 </div>
               </div>
               <div class="row mb-2">
                 <label for="new-poll-description" class="col-sm-2 col-form-label">Kuvaus</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" id="new-poll-description" placeholder="Mitä haluat kysyä?">
+                  <input type="text" class="form-control require-poll-input" id="new-poll-description" placeholder="Mitä haluat kysyä?">
                 </div>
               </div>
               
@@ -149,12 +149,12 @@
                 <label for="new-poll-option1" class="col-sm-2 col-form-label col-form-label">Vaihtoehdot</label>
                 <p class="text-info small fst-italic">Anna vähintään kaksi äänestysvaihtoehtoa.</p>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control form-control-sm new-poll-option" id="new-poll-option1" placeholder="Vaihtoehto 1">
+                  <input type="text" class="form-control form-control-sm new-poll-option required-poll-input" id="new-poll-option1" placeholder="Vaihtoehto 1">
                 </div>
               </div>
               <div class="row mb-1">
                 <div class="col-sm-10">
-                  <input type="text" class="form-control form-control-sm new-poll-option" id="new-poll-option2" placeholder="Vaihtoehto 2">
+                  <input type="text" class="form-control form-control-sm new-poll-option required-poll-input" id="new-poll-option2" placeholder="Vaihtoehto 2">
                 </div>
               </div>
               <div class="row mb-1">
@@ -174,7 +174,7 @@
               </div>
             </div>
             <div class="row mb-1">
-              <p id="new-poll-error" class="text-danger small fst-italic">Vaihtoehdon maksimipituus on 30 merkkiä.</p>
+              <p id="new-poll-error" class="text-danger small fst-italic invisible">Vaihtoehdon maksimipituus on 30 merkkiä.</p>
             </div>
             <div class="mb-1">
               <input type="checkbox" class="form-check-inline" id="test-votes">
@@ -185,7 +185,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Sulje</button>
-            <button type="button" id="create-poll-button" class="btn btn-primary" data-bs-dismiss="modal">Luo äänestys</button>
+            <button type="button" id="create-poll-button" class="btn btn-primary disabled" data-bs-dismiss="modal">Luo äänestys</button>
           </div>
         </div>
       </div>
