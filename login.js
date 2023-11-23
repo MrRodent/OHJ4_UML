@@ -41,7 +41,7 @@ export function hideLoginForm() {
   pollContainer.classList.remove('blur');
 }
 
-export function showLoginForm() {
+function showLoginForm() {
   hideRegistrationForm();
   form.classList.replace('invisible', 'visible');
   pollContainer.classList.add('blur');
@@ -71,7 +71,7 @@ function updateNavbarOnLogin(id) {
   }
 }
 
-function showVotingOptions() {
+export function showVotingOptions() {
   const voteButtons = document.querySelectorAll('.vote-button');
   voteButtons.forEach(button => {
     button.classList.remove('invisible');
@@ -97,7 +97,6 @@ function send() {
     updateNavbarOnLogin(idField.value);
     showVotingOptions();
     // TODO: Kirjaudu
-
   }
 }
 

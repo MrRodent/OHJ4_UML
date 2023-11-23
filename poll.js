@@ -1,3 +1,5 @@
+import { showVotingOptions } from "./login.js";
+
 export class pollCard {
   constructor (id, subject, description, choices, testVotes) {
     this.id = id;
@@ -270,7 +272,7 @@ export class pollCard {
 const createBtn = document.getElementById('create-poll-button');
 // TODO: find out how to disable the btn until enough input in fields
 //       unlock newly created polls for voting
-export function createNewPoll() {
+function createNewPoll() {
   const id = 0; // TODO: give and store ids
   const subject = document.getElementById('new-poll-header').value;
   const description = document.getElementById('new-poll-description').value;
@@ -285,6 +287,8 @@ export function createNewPoll() {
   
   const testVotes = document.getElementById('test-votes').checked;
   const card = new pollCard(id, subject, description, optionArray, testVotes);
+
+  showVotingOptions();
   return card;  // TODO: if needed
 }
 createBtn.addEventListener('click', createNewPoll);

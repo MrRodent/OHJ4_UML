@@ -70,14 +70,12 @@ function send() {
     return false;
 }
 
-//////////////
-// Exports
 export function hideRegistrationForm() {
   form.classList.replace('visible', 'invisible');
   pollContainer.classList.remove('blur');
 }
 
-export function showRegistrationForm() {
+function showRegistrationForm() {
   hideLoginForm();
   form.classList.replace('invisible', 'visible');
   pollContainer.classList.add('blur');
@@ -92,7 +90,7 @@ export function createDefaultUsers() {
   localStorage.setItem("users", json);
 }
 
-export function emptyRegFields() {
+function emptyRegFields() {
   let id = document.getElementById('regInputID');
   let pw = document.getElementById('regInputPw');
   let adminCheck = document.getElementById('checkAdmin');
