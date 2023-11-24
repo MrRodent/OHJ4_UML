@@ -1,5 +1,5 @@
-import { showVotingOptions } from "./login.js";
-import { getPolls } from "./utils.js";
+import { currentlyLoggedUser } from "./login.js";
+import { getPolls, getUsers } from "./utils.js";
 
 export class pollCard {
   constructor (id, subject, description, choices, testVotes) {
@@ -7,12 +7,10 @@ export class pollCard {
     this.subject = subject;
     this.description = description;
     this.choices = choices;
-    // Adds a random number of votes for testing purposes
     this.testVotes = testVotes;
-    
+    this.justVoted = false;
     this.pollName = `poll${id}`;
     this.totalVotes = 0;
-    this.alreadyVoted = false;
     this.form;
 
     // Create a vote counter for each choice
@@ -43,7 +41,7 @@ export class pollCard {
 
     // Delete button
     const deleteBtnDiv = document.createElement('div');
-    deleteBtnDiv.classList.add('float-end', 'm-1', 'position-absolute', 'delete-button'); // TODO: d-none
+    deleteBtnDiv.classList.add('float-end', 'm-1', 'position-absolute', 'delete-button', 'd-none');
     const deleteBtn = document.createElement('button');
     deleteBtn.id = `delete-button${this.id}`;
     deleteBtn.type = 'button';
@@ -183,9 +181,6 @@ export class pollCard {
     // Vote button functionality
     voteBtn.addEventListener('click', (event) => {
       event.preventDefault();
-      // TODO: check this when loading page
-      // this should be saved only to the user
-      this.alreadyVoted = true;
       const selectedChoice = document.querySelector(`input[name=${this.pollName}]:checked`);
       this.vote(selectedChoice);
       this.showResults(resultBtn, voteBtn);
@@ -196,14 +191,24 @@ export class pollCard {
         const index = choice.getAttribute('data-index');
         this.totalVotes++;
         this.voteCounts[index]++;
-        
-        // Save to local storage 
+
+        // Save vote counts
         let polls = getPolls();
         let result = polls.find(poll => poll.id === this.id);
         result.totalVotes++;
         result.voteCounts[index]++;
-        let json = JSON.stringify(polls);
-        localStorage.setItem('polls', json);
+        let pollJson = JSON.stringify(polls);
+        localStorage.setItem('polls', pollJson);
+
+        // Save user
+        let users = getUsers();
+        users.forEach(user => {
+          if (user.id === currentlyLoggedUser) {
+            user.pollsVoted.push(this.id);
+          }
+        });
+        let userJson = JSON.stringify(users);
+        localStorage.setItem('users', userJson);
     }
 
     getPercentage(voteCount) {
@@ -274,14 +279,14 @@ export class pollCard {
         const label = progressBar.childNodes[0];
 
         // Highlight user's choice
-        if (input.checked && this.alreadyVoted) {
+        if (input.checked && this.justVoted) {
             progressBar.classList.replace('bg-secondary', 'bg-success');
         } else {
             progressBar.classList.replace('bg-secondary', 'bg-body-tertiary');
         }
 
         const index = input.getAttribute('data-index');
-        const voteCount = this.voteCounts[index]
+        const voteCount = this.voteCounts[index];
 
         const percentage = this.getPercentage(voteCount);
         label.innerHTML += `<br><b>${percentage}%</b> &nbsp;<i>(${voteCount})</i>`;
@@ -424,7 +429,7 @@ checkPollInputs();
 
 export function createDefaultPolls() {
   if (localStorage.getItem("polls") !== null) return;
-  console.log("No polls in local storage. Creating default polls");
+  console.info("No polls found. Creating default polls");
 
   let polls = [];
   const card0 = new pollCard(0, 'Lempieläin', 'Mikä on lempieläimesi?', ['Kissa', 'Koira'], true);
@@ -434,4 +439,11 @@ export function createDefaultPolls() {
 
   const json = JSON.stringify(polls);
   localStorage.setItem("polls", json);
+}
+
+export function loadPolls() {
+  const polls = getPolls();
+  polls.forEach(poll => {
+    new pollCard(poll.id, poll.subject, poll.description, poll.choices, poll.testVotes);
+  });
 }

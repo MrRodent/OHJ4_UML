@@ -1,9 +1,14 @@
-import { login, showVotingOptions } from "./login.js";
-import { pollCard } from "./poll.js";
+import { login } from "./login.js";
 
 export function getUsers() {
   const users = localStorage.getItem("users");
   const parsed = JSON.parse(users);
+  return parsed;
+}
+
+export function getPolls() {
+  const polls = localStorage.getItem("polls");
+  const parsed = JSON.parse(polls);
   return parsed;
 }
 
@@ -30,30 +35,16 @@ export function isUserAdmin(id) {
   }
 }
 
+// Called in main when entering the page.
 export function checkIfLoggedIn() {
   const users = getUsers();
   for (const user of users) {
     if (user.isLoggedIn) {
-      console.log(user.id, "is logged in");
       login(user.id);
     }
   }
 }
 
-export function getPolls() {
-  const polls = localStorage.getItem("polls");
-  const parsed = JSON.parse(polls);
-  return parsed;
-}
-
-export function loadPolls() {
-  const polls = getPolls();
-  polls.forEach(poll => {
-    new pollCard(poll.id, poll.subject, poll.description, poll.choices, poll.testVotes);
-  });
-}
-
-// Success message
 const toast = document.getElementById('liveToast');
 export function showToast(header, msg) {
   let toastHeader = document.getElementById('toastHeader');

@@ -55,7 +55,9 @@ function updateNavbarOnLogin(id) {
   loginLinks.forEach(link => {
     link.removeEventListener('click', showLoginForm);
     link.addEventListener('click', logOut);
-    link.textContent = 'Kirjaudu ulos';
+    if (link.id !== 'login-link-form') {
+      link.textContent = 'Kirjaudu ulos';
+    }
   });
 
   const regLinks = document.querySelectorAll('.register-link');
@@ -76,7 +78,7 @@ function updateNavbarOnLogin(id) {
   }
 }
 
-export function showVotingOptions() {
+function showVotingOptions() {
   const voteButtons = document.querySelectorAll('.vote-button');
   voteButtons.forEach(button => {
     button.classList.remove('invisible');
@@ -100,7 +102,7 @@ function emptyLoginFields() {
   pwField.value = '';
 }
 
-let currentlyLoggedUser;
+export let currentlyLoggedUser;
 export function login(id) {
   currentlyLoggedUser = id;
   updateNavbarOnLogin(id);
@@ -151,10 +153,15 @@ function hideVotingOptions() {
 }
 
 function logOut() {
-  console.log("Logged out");
+  const deleteBtns = document.querySelectorAll('.delete-button');
+  deleteBtns.forEach(button => {
+    button.classList.add('d-none');
+  });
+
   updateNavbarOnLogout();
   hideVotingOptions();
   setLoginStatus(currentlyLoggedUser, false);
+  currentlyLoggedUser = null;
   showToast('Hei hei!', 'Olet nyt kirjautunut ulos');
 }
 

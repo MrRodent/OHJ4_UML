@@ -51,6 +51,8 @@ function saveToLocalStorage(idField, pwField, adminCheck) {
   const parsed = JSON.parse(users);
   const newUser = {id: idField, pw: pwField, admin: adminCheck, isLoggedIn: false};
   parsed.push(newUser);
+  console.log(parsed);
+  console.log(users);
   const json = JSON.stringify(parsed);
   localStorage.setItem("users", json);
 }
@@ -61,8 +63,10 @@ function send() {
   
   if (validateID(idField.value)
     & validatePassword(pwField.value)) {
-      emptyRegFields();
       saveToLocalStorage(idField.value, pwField.value, adminCheck);
+      const loginField = document.getElementById('loginInputID');
+      loginField.value = idField.value;
+      emptyRegFields();
       showToast('Tunnuksen luonti onnistui', 'Voit nyt kirjautua sisään.');
       hideRegistrationForm();      
       return true;
@@ -83,9 +87,10 @@ function showRegistrationForm() {
 
 export function createDefaultUsers() {
   if (localStorage.getItem("users") !== null) return;
-  console.log("No users in local storage. Creating default users.");
+  console.info("No users found. Creating default users.");
 
-  const users = [{id: "admin", pw: "admin", admin: true, isLoggedIn: false}, {id: "user", pw: "user", admin: false, isLoggedIn: false}];
+  const users = [{id: "admin", pw: "admin", admin: true, isLoggedIn: false}
+              , {id: "user", pw: "user", admin: false, isLoggedIn: false}];
   const json = JSON.stringify(users);
   localStorage.setItem("users", json);
 }
