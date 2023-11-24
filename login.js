@@ -93,26 +93,42 @@ export function showVotingOptions() {
   });
 }
 
+function emptyLoginFields() {
+  errorMsgID.innerHTML = '';
+  errorMsgPw.innerHTML = '';
+  idField.value = '';
+  pwField.value = '';
+}
+
+let currentlyLoggedUser;
+export function login(id) {
+  currentlyLoggedUser = id;
+  updateNavbarOnLogin(id);
+  showVotingOptions();
+  setLoginStatus(id, true);
+}
+
+function setLoginStatus(id, value = false) {
+  // Save user's status to local storage
+  let users = getUsers();
+  users.forEach(user => {
+    if (id === user.id) {
+      user.isLoggedIn = value;
+      let json = JSON.stringify(users);
+      localStorage.setItem('users', json);
+      return;
+    }
+  });
+}
+
 // Sending
 function send() {  
   if (checkID(idField.value, pwField.value)) {
     showToast(`Tervetuloa ${idField.value}`, 'Olet nyt kirjautunut sisään.');
-    emptyLoginFields();
+    login(idField.value);
     hideLoginForm();
-    updateNavbarOnLogin(idField.value);
-    showVotingOptions();
-    // TODO: Kirjaudu
+    emptyLoginFields();
   }
-}
-
-export function emptyLoginFields() {
-  let id = document.getElementById('loginInputID');     // TODO: listata nämä tiedoston alkuun vai purkaa lista?  on myös regissä
-  let pw = document.getElementById('loginInputPw');
-
-  errorMsgID.innerHTML = '';
-  errorMsgPw.innerHTML = '';
-  id.value = '';
-  pw.value = '';
 }
 
 //////////////
@@ -138,6 +154,7 @@ function logOut() {
   console.log("Logged out");
   updateNavbarOnLogout();
   hideVotingOptions();
+  setLoginStatus(currentlyLoggedUser, false);
   showToast('Hei hei!', 'Olet nyt kirjautunut ulos');
 }
 

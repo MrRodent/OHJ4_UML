@@ -1,6 +1,6 @@
 import { createDefaultPolls, pollCard } from "./poll.js";
 import { createDefaultUsers } from "./registration.js";
-import { loadPolls } from "./utils.js";
+import { checkIfLoggedIn, loadPolls } from "./utils.js";
 
 //////////////
 // Settings
@@ -15,5 +15,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
   createDefaultUsers();
   createDefaultPolls();
   loadPolls();
+  checkIfLoggedIn();
 });
   

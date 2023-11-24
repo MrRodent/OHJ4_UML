@@ -1,3 +1,4 @@
+import { login, showVotingOptions } from "./login.js";
 import { pollCard } from "./poll.js";
 
 export function getUsers() {
@@ -29,18 +30,26 @@ export function isUserAdmin(id) {
   }
 }
 
+export function checkIfLoggedIn() {
+  const users = getUsers();
+  for (const user of users) {
+    if (user.isLoggedIn) {
+      console.log(user.id, "is logged in");
+      login(user.id);
+    }
+  }
+}
+
 export function getPolls() {
   const polls = localStorage.getItem("polls");
   const parsed = JSON.parse(polls);
   return parsed;
 }
 
-// TODO: Currently this creates new polls when called
-// - could optionally return vote counts
 export function loadPolls() {
   const polls = getPolls();
   polls.forEach(poll => {
-    const card = new pollCard(poll.id, poll.subject, poll.description, poll.choices, poll.testVotes);
+    new pollCard(poll.id, poll.subject, poll.description, poll.choices, poll.testVotes);
   });
 }
 

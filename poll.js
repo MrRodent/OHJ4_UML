@@ -196,7 +196,14 @@ export class pollCard {
         const index = choice.getAttribute('data-index');
         this.totalVotes++;
         this.voteCounts[index]++;
-        // TODO: Save to localStorage 
+        
+        // Save to local storage 
+        let polls = getPolls();
+        let result = polls.find(poll => poll.id === this.id);
+        result.totalVotes++;
+        result.voteCounts[index]++;
+        let json = JSON.stringify(polls);
+        localStorage.setItem('polls', json);
     }
 
     getPercentage(voteCount) {
@@ -240,7 +247,11 @@ export class pollCard {
       // Confirm button functionality
       confirmBtn.addEventListener('click', () => {
           card.remove();
-          // TODO: remove from local storage
+          // Remove from local storage
+          let polls = getPolls();
+          polls = polls.filter(poll => poll.id !== this.id);
+          let json = JSON.stringify(polls);
+          localStorage.setItem('polls', json);
       });
 
       // Decline button functionality

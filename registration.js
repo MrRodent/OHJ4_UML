@@ -49,7 +49,7 @@ function saveToLocalStorage(idField, pwField, adminCheck) {
   }
   const users = localStorage.getItem("users");
   const parsed = JSON.parse(users);
-  const newUser = {id: idField, pw: pwField, admin: adminCheck};
+  const newUser = {id: idField, pw: pwField, admin: adminCheck, isLoggedIn: false};
   parsed.push(newUser);
   const json = JSON.stringify(parsed);
   localStorage.setItem("users", json);
@@ -85,7 +85,7 @@ export function createDefaultUsers() {
   if (localStorage.getItem("users") !== null) return;
   console.log("No users in local storage. Creating default users.");
 
-  const users = [{id: "admin", pw: "admin", admin: true}, {id: "user", pw: "user", admin: false}];
+  const users = [{id: "admin", pw: "admin", admin: true, isLoggedIn: false}, {id: "user", pw: "user", admin: false, isLoggedIn: false}];
   const json = JSON.stringify(users);
   localStorage.setItem("users", json);
 }
